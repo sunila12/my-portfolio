@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myportfolio
+spec:
+  selector:
+    matchLabels:
+      app: myportfolio
+  template:
+    metadata:
+      labels:
+        app: myportfolio
+    spec:
+      containers:
+      - name: myportfolio
+        image: sunila12/my-portfolio:1.0
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: myportfolio
+spec:
+  type: LoadBalancer
+  selector:
+    app: myportfolio
+  ports:
+  - port: 80
+    targetPort: 80
+
